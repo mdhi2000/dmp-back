@@ -30,7 +30,7 @@ jobs:
         # ssh remote user
         user: ${{ secrets.REMOTE_USER }}
         # content of ssh private key. ex raw content of ~/.ssh/id_rsa
-        key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
+        # key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
         # ssh remote password
         pass: ${{ secrets.PASSWORD }} # optional
         # connection timeout to remote host
