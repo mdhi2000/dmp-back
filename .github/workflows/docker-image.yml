@@ -36,6 +36,6 @@ jobs:
         # connection timeout to remote host
         # connect_timeout: # optional, default is 30s
         # execute commands on ssh
-        # script: cd ~/Projects/dmp-back && git pull && docker-compose up -d --build # optional
+        script: cd ~/Projects/dmp-back && git pull && docker-compose up -d --build # optional
     # - name: Build the Docker image
     #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
