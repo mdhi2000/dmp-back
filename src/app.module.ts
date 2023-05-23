@@ -7,7 +7,9 @@ import { MusicModule } from './music/music.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/dmp'),
+    MongooseModule.forRoot(
+      process.env.MONGO_DB_URL ?? 'mongodb://localhost/dmp',
+    ),
     ConfigModule.forRoot({
       isGlobal: true,
     }),

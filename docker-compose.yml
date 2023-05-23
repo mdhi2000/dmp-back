@@ -1,0 +1,21 @@
+version: '3'
+services:
+  dmp-back:
+    container_name: "dmp-back"
+    build:
+      context: .
+    restart: "always"
+    volumes:
+      - "./:/usr/src/app"
+    ports:
+      - 3000
+    environment:
+      - VIRTUAL_HOST=dmp-api.mdhi.dev
+      - VIRTUAL_PORT=3000
+      - MONGO_DB_URL=mongodb://mongo
+    networks:
+      - proxy
+networks:
+  proxy:
+    external:
+      name: nginx-proxy_nginx-proxy
