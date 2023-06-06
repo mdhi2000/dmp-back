@@ -4,6 +4,11 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { MusicModule } from './music/music.module';
+import { ArtistModule } from './artist/artist.module';
+import { UserModule } from './user/user.module';
+import { SeederModule } from './seeder/seeder.module';
+import { MoodModule } from './mood/mood.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +19,11 @@ import { MusicModule } from './music/music.module';
       isGlobal: true,
     }),
     MusicModule,
+    ArtistModule,
+    UserModule,
+    SeederModule,
+    MoodModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

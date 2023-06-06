@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { Artist } from 'src/artist/schemas/artist.schema';
 
 export type UserDocument = HydratedDocument<Music>;
 
@@ -11,8 +12,8 @@ export class Music {
   @Prop({ required: true })
   name: string;
 
-  @Prop()
-  artist: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Artist.name })
+  artist: Artist;
 
   @Prop()
   artist_tags: string[];
@@ -80,7 +81,7 @@ export class Music {
   @Prop()
   lyric: string;
 
-  @Prop()
+  @Prop({ index: true })
   kmeans_label: string;
 }
 
