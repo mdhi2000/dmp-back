@@ -11,8 +11,8 @@ FROM base
 
 COPY . .
 
-# RUN yarn build
+RUN yarn build
 
-# CMD ["node", "dist/main.js"]
+CMD ["node", "dist/main.js"]
 
-CMD ["yarn", "start:dev"]
+# CMD ["yarn", "start:dev"]
