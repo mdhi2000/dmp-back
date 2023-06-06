@@ -4,7 +4,6 @@ import { VerifyEmailDto } from './dto/verify-email.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/user/schemas/user.schema';
 import { Model } from 'mongoose';
-import { UserDocument } from 'src/music/schemas/music.schema';
 import * as nodemailer from 'nodemailer';
 import { tradeToken } from 'src/utils/jwt';
 
