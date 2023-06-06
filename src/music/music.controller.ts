@@ -10,7 +10,9 @@ import {
 import { MusicService } from './music.service';
 import { CreateMusicDto } from './dto/create-music.dto';
 import { UpdateMusicDto } from './dto/update-music.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('not implemented')
 @Controller('music')
 export class MusicController {
   constructor(private readonly musicService: MusicService) {}

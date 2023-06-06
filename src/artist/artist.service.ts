@@ -15,9 +15,56 @@ export class ArtistService {
     return artist;
   }
 
-  findAll() {
-    return this.artistModel.find();
+  convertNumberFormat(number) {
+    const multiplier = {
+      K: 1e3,
+      M: 1e6,
+      B: 1e9,
+      T: 1e12,
+    };
+
+    const value = parseFloat(number);
+    const suffix = number.slice(-1).toUpperCase();
+    const isValidNumber = !isNaN(value);
+
+    if (
+      isValidNumber &&
+      (multiplier.hasOwnProperty(suffix) || !isNaN(parseFloat(suffix)))
+    ) {
+      const normalizedValue = multiplier.hasOwnProperty(suffix)
+        ? value * multiplier[suffix]
+        : value;
+      return normalizedValue;
+    }
+
+    return 0;
   }
+
+  seed(
+    artists: {
+      name: string;
+      plays: number;
+      photo: string;
+      photo_player: string;
+      photo_thumb: string;
+      background: string;
+      share_link: string;
+      following: boolean;
+      followers_count: number;
+    }[],
+  ) {
+    for (const artist of artists.slice(0, 10)) {
+      artist.plays = this.convertNumberFormat(artist.plays);
+      console.log(artist);
+      const createdArtist = new this.artistModel(artist);
+      console.log(createdArtist);
+      createdArtist.save();
+    }
+  }
+
+  // findAll() {
+  //   return this.artistModel.find();
+  // }
 
   findOne(id: string) {
     return this.artistModel.findById(id);
@@ -28,6 +75,6 @@ export class ArtistService {
   }
 
   remove(id: string) {
-    return `This action removes a #${id} artist`;
+    return this.artistModel.findByIdAndDelete(id);
   }
 }
