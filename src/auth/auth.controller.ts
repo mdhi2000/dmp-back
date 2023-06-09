@@ -24,7 +24,10 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
-  @ApiBody({ type: VerifyEmailDto })
+  @ApiBody({
+    description: 'use "123456" if you want to bypass verification',
+    type: VerifyEmailDto,
+  })
   @ApiResponse({ status: HttpStatus.OK, description: 'accessToken' })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,

@@ -2,6 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Music } from 'src/music/schemas/music.schema';
 import { Playlist } from 'src/music/schemas/playlist.schema';
+import { UserMood } from './user-moods.schema';
+import { Mood } from 'src/mood/schemas/mood.schema';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -31,8 +33,8 @@ export class User {
   @Prop()
   profilePicture: string;
 
-  // @Prop()
-  // moods:
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Mood.name }] })
+  moods: UserMood[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Music.name }] })
   likedSongs: Music[];
