@@ -13,6 +13,7 @@ async function bootstrap() {
     .setTitle('Musito')
     .setDescription('Musito app document')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);

@@ -6,11 +6,15 @@ import { User } from 'src/user/schemas/user.schema';
 import { Model } from 'mongoose';
 import * as nodemailer from 'nodemailer';
 import { tradeToken } from 'src/utils/jwt';
+import { Mood } from 'src/mood/schemas/mood.schema';
 
 @Injectable()
 export class AuthService {
   private transporter: nodemailer.Transporter;
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Mood.name) private moodModel: Model<Mood>,
+  ) {
     nodemailer.createTestAccount().then((testAccount) => {
       this.transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
@@ -63,6 +67,8 @@ export class AuthService {
   }
 
   async createUser(loginDto: LoginDto) {
+    const moods = await this.moodModel.find();
+    // moods.
     return new this.userModel({
       email: loginDto.email,
       username: await this.generateRandomUsername(),
@@ -70,6 +76,7 @@ export class AuthService {
   }
 
   async verifyEmail(verifyEmailDto: VerifyEmailDto) {
+    console.log(verifyEmailDto);
     let user;
     if (verifyEmailDto.code == '12345') {
       user = await this.userModel.findOne({
@@ -133,7 +140,7 @@ export class AuthService {
   }
 
   generateVerificationCode(length) {
-    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const characters = '0123456789';
     let verificationCode = '';
 
     for (let i = 0; i < length; i++) {

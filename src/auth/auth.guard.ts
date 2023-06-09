@@ -26,6 +26,7 @@ export class AuthGuard implements CanActivate {
             },
             { password: 0 },
           )
+          .populate(['likedSongs', 'playLists'])
           .then((user) => {
             request.body.currentUser = user;
             return true;
