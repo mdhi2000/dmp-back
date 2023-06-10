@@ -8,12 +8,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export type UserDocument = HydratedDocument<User>;
 
-interface IMood {
-  name: string;
-  cover: string;
-  songs: Music[];
-}
-
 @Schema({ timestamps: true })
 export class User {
   @Prop()
@@ -47,6 +41,10 @@ export class User {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Music.name }] })
   @ApiProperty()
   likedSongs: Music[];
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Music.name }] })
+  @ApiProperty()
+  dislikedSongs: Music[];
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: Playlist.name }],

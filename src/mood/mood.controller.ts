@@ -1,6 +1,7 @@
 import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { MoodService } from './mood.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Mood } from './schemas/mood.schema';
 
 @ApiTags('mood')
 @Controller('mood')
@@ -15,6 +16,7 @@ export class MoodController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'returns all available moods',
+    type: Mood,
   })
   @Get()
   findAll() {

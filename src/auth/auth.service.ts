@@ -2,18 +2,20 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 import { Model } from 'mongoose';
 import * as nodemailer from 'nodemailer';
 import { tradeToken } from 'src/utils/jwt';
-import { Mood } from 'src/mood/schemas/mood.schema';
+import { Mood, MoodDocument } from 'src/mood/schemas/mood.schema';
+import { UserMood, UserMoodDocument } from 'src/user/schemas/user-moods.schema';
 
 @Injectable()
 export class AuthService {
   private transporter: nodemailer.Transporter;
   constructor(
-    @InjectModel(User.name) private userModel: Model<User>,
-    @InjectModel(Mood.name) private moodModel: Model<Mood>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(Mood.name) private moodModel: Model<MoodDocument>,
+    @InjectModel(UserMood.name) private userMoodModel: Model<UserMoodDocument>,
   ) {
     nodemailer.createTestAccount().then((testAccount) => {
       this.transporter = nodemailer.createTransport({
@@ -68,10 +70,15 @@ export class AuthService {
 
   async createUser(loginDto: LoginDto) {
     const moods = await this.moodModel.find();
-    // moods.
+    const userMoods = [];
+    for (const mood of moods) {
+      const userMood = new this.userMoodModel({ mood, weight: 0 });
+      userMoods.push(userMood);
+    }
     return new this.userModel({
       email: loginDto.email,
       username: await this.generateRandomUsername(),
+      moods: userMoods,
     });
   }
 
