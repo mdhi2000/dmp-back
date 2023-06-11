@@ -17,7 +17,7 @@
 
 # # CMD ["yarn", "start:dev"]
 
-FROM node:14-alpine as base
+FROM node:16-alpine as base
 
 USER node
 WORKDIR /home/node
@@ -27,7 +27,7 @@ COPY yarn.lock /home/node
 
 RUN yarn
 
-# ---
+# ----
 
 FROM base as production
 
