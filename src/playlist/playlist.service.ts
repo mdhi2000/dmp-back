@@ -26,12 +26,10 @@ export class PlaylistService {
   }
 
   async createAutoPlaylist(createAutoPlaylistDto: CreateAutoPlaylistDto) {
-    const { default: bingImageCreator } = await import('bimg');
-
-    const generatedImages = bingImageCreator.generateImagesLinks(
-      `کاور آلبوم آهنگ با موضوع ${createAutoPlaylistDto.prompts.join('، ')}`,
-    );
-
-    console.log(generatedImages);
+    // const { default: bingImageCreator } = await import('bimg');
+    // const generatedImages = bingImageCreator.generateImagesLinks(
+    //   `کاور آلبوم آهنگ با موضوع ${createAutoPlaylistDto.prompts.join('، ')}`,
+    // );
+    // console.log(generatedImages);
   }
 }

@@ -37,4 +37,10 @@ export class MoodController {
   // remove(@Param('id') id: string) {
   //   return this.moodService.remove(+id);
   // }
+
+  // @Get('assign')
+  // @
+  // assign(){
+
+  // }
 }
