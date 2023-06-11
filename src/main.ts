@@ -10,7 +10,7 @@ import * as proxy from 'express-http-proxy';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.use('/proxy', proxy('www.google.com', {}));
+  app.use('/rjmedia', proxy('https://host1.media-rj.app'));
 
   app.use(cookieParser());
   app.enableCors();

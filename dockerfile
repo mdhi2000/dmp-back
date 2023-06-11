@@ -25,7 +25,7 @@ WORKDIR /home/node
 COPY package*.json /home/node
 COPY yarn.lock /home/node
 
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 # ----
 
