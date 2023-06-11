@@ -27,7 +27,7 @@ COPY yarn.lock /home/node
 
 RUN yarn
 
-# ---
+# ----
 
 FROM base as production
 
