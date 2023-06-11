@@ -2,8 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Observable } from 'rxjs';
-import { UserDocument } from 'src/music/schemas/music.schema';
-import { User } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 import { verifyToken } from 'src/utils/jwt';
 
 @Injectable()
@@ -26,6 +25,7 @@ export class AuthGuard implements CanActivate {
             },
             { password: 0 },
           )
+          .populate(['likedSongs', 'playlists'])
           .then((user) => {
             request.body.currentUser = user;
             return true;

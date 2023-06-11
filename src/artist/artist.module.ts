@@ -7,8 +7,8 @@ import { Music, MusicSchema } from '../music/schemas/music.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Music.name, schema: ArtistSchema }]),
-    MongooseModule.forFeature([{ name: Artist.name, schema: MusicSchema }]),
+    MongooseModule.forFeature([{ name: Music.name, schema: MusicSchema }]),
+    MongooseModule.forFeature([{ name: Artist.name, schema: ArtistSchema }]),
   ],
   controllers: [ArtistController],
   providers: [ArtistService],

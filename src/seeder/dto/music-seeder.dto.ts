@@ -1,10 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class CreateMusicDto {
+export class MusicSeedDto {
   @ApiProperty()
-  externalId: string;
+  @IsNotEmpty()
+  id: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   name: string;
 
   @ApiProperty()
@@ -14,9 +17,11 @@ export class CreateMusicDto {
   artist_tags: string[];
 
   @ApiProperty()
+  @IsNumber()
   plays: number;
 
   @ApiProperty()
+  @IsNumber()
   downloads: number;
 
   @ApiProperty()
@@ -38,9 +43,11 @@ export class CreateMusicDto {
   credits?: string;
 
   @ApiProperty()
+  @IsNumber()
   like: number;
 
   @ApiProperty()
+  @IsNumber()
   dislike: number;
 
   @ApiProperty()
@@ -68,6 +75,7 @@ export class CreateMusicDto {
   date: string;
 
   @ApiProperty()
+  @IsNumber()
   duration: number;
 
   @ApiProperty()

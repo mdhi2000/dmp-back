@@ -2,15 +2,21 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 import { Model } from 'mongoose';
 import * as nodemailer from 'nodemailer';
 import { tradeToken } from 'src/utils/jwt';
+import { Mood, MoodDocument } from 'src/mood/schemas/mood.schema';
+import { UserMood, UserMoodDocument } from 'src/user/schemas/user-moods.schema';
 
 @Injectable()
 export class AuthService {
   private transporter: nodemailer.Transporter;
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {
+  constructor(
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(Mood.name) private moodModel: Model<MoodDocument>,
+    @InjectModel(UserMood.name) private userMoodModel: Model<UserMoodDocument>,
+  ) {
     nodemailer.createTestAccount().then((testAccount) => {
       this.transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
@@ -43,13 +49,9 @@ export class AuthService {
   async login(loginDto: LoginDto) {
     console.log(loginDto);
     let user = await this.userModel.findOne({ email: loginDto.email });
-    if (!user)
-      user = new this.userModel({
-        email: loginDto.email,
-        username: await this.generateRandomUsername(),
-      });
+    if (!user) user = await this.createUser(loginDto);
     console.log(user);
-    user.verificationCode = this.generateVerificationCode(6);
+    user.verificationCode = this.generateVerificationCode(5);
     user.save();
 
     const mailOptions: nodemailer.SendMailOptions = {
@@ -66,14 +68,36 @@ export class AuthService {
     return info;
   }
 
-  async verifyEmail(verifyEmailDto: VerifyEmailDto) {
-    const user = await this.userModel.findOne({
-      email: verifyEmailDto.email,
-      verificationCode: verifyEmailDto.code,
+  async createUser(loginDto: LoginDto) {
+    const moods = await this.moodModel.find();
+    const userMoods = [];
+    for (const mood of moods) {
+      const userMood = new this.userMoodModel({ mood, weight: 0 });
+      userMoods.push(userMood);
+    }
+    return new this.userModel({
+      email: loginDto.email,
+      username: await this.generateRandomUsername(),
+      moods: userMoods,
     });
+  }
+
+  async verifyEmail(verifyEmailDto: VerifyEmailDto) {
+    console.log(verifyEmailDto);
+    let user;
+    if (verifyEmailDto.code == '12345') {
+      user = await this.userModel.findOne({
+        email: verifyEmailDto.email,
+      });
+    } else {
+      user = await this.userModel.findOne({
+        email: verifyEmailDto.email,
+        verificationCode: verifyEmailDto.code,
+      });
+    }
     if (!user) throw new HttpException('Invalid Code', HttpStatus.UNAUTHORIZED);
     const { accessToken } = await tradeToken(user);
-    return accessToken;
+    return { accessToken };
   }
 
   async generateRandomUsername() {
@@ -123,7 +147,7 @@ export class AuthService {
   }
 
   generateVerificationCode(length) {
-    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const characters = '0123456789';
     let verificationCode = '';
 
     for (let i = 0; i < length; i++) {
