@@ -9,7 +9,7 @@ import { SearchService } from './search.service';
 import { ApiOkResponse, ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Artist } from 'src/artist/schemas/artist.schema';
 import { Music } from 'src/music/schemas/music.schema';
-import { Playlist } from 'src/music/schemas/playlist.schema';
+import { Playlist } from 'src/playlist/schemas/playlist.schema';
 
 class SearchResult {
   @ApiProperty({

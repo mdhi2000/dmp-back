@@ -4,7 +4,7 @@ import { SearchController } from './search.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Music, MusicSchema } from 'src/music/schemas/music.schema';
 import { Artist, ArtistSchema } from 'src/artist/schemas/artist.schema';
-import { Playlist, PlaylistSchema } from 'src/music/schemas/playlist.schema';
+import { Playlist, PlaylistSchema } from 'src/playlist/schemas/playlist.schema';
 
 @Module({
   imports: [

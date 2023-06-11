@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Music } from 'src/music/schemas/music.schema';
-import { Playlist } from 'src/music/schemas/playlist.schema';
+import { Playlist } from 'src/playlist/schemas/playlist.schema';
 import { UserMood } from './user-moods.schema';
 import { Mood } from 'src/mood/schemas/mood.schema';
 import { ApiProperty } from '@nestjs/swagger';

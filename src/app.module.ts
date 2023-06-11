@@ -10,6 +10,7 @@ import { SeederModule } from './seeder/seeder.module';
 import { MoodModule } from './mood/mood.module';
 import { AuthModule } from './auth/auth.module';
 import { SearchModule } from './search/search.module';
+import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SearchModule } from './search/search.module';
     MoodModule,
     AuthModule,
     SearchModule,
+    PlaylistModule,
   ],
   controllers: [AppController],
   providers: [AppService],

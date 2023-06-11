@@ -123,4 +123,36 @@ export class MusicService {
       )
       .populate('likedSongs', 'dislikedSongs');
   }
+
+  async dislikeSong(userId: string, songId: string) {
+    if (
+      (
+        await this.userModel.find({
+          _id: userId,
+          dislikedSongs: {
+            $in: [new mongoose.Types.ObjectId(songId)],
+          },
+        })
+      ).length > 0
+    ) {
+      return this.userModel
+        .findByIdAndUpdate(
+          userId,
+          {
+            $pullAll: { dislikedSongs: [{ _id: songId }] },
+          },
+          { new: true },
+        )
+        .populate('likedSongs', 'dislikedSongs');
+    }
+    return this.userModel
+      .findByIdAndUpdate(
+        userId,
+        {
+          $push: { dislikedSongs: { _id: songId } },
+        },
+        { new: true },
+      )
+      .populate('likedSongs', 'dislikedSongs');
+  }
 }

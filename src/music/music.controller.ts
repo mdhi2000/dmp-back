@@ -89,4 +89,11 @@ export class MusicController {
   like(@Param('id') id: string, @Req() req) {
     return this.musicService.likeSong(req.body.currentUser.id, id);
   }
+
+  @Get('dislike/:id')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
+  dislike(@Param('id') id: string, @Req() req) {
+    return this.musicService.dislikeSong(req.body.currentUser.id, id);
+  }
 }

@@ -3,7 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, PaginateModel } from 'mongoose';
 import { Artist, ArtistDocument } from 'src/artist/schemas/artist.schema';
 import { Music, MusicDocument } from 'src/music/schemas/music.schema';
-import { Playlist, PlaylistDocument } from 'src/music/schemas/playlist.schema';
+import {
+  Playlist,
+  PlaylistDocument,
+} from 'src/playlist/schemas/playlist.schema';
 import finglishToPersian from 'src/utils/finglishToFa.helpers';
 
 @Injectable()
