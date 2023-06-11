@@ -25,7 +25,7 @@ WORKDIR /home/node
 COPY package*.json /home/node
 COPY yarn.lock /home/node
 
-RUN yarn
+RUN npm install --legacy-peer-deps
 
 # ----
 
@@ -38,6 +38,6 @@ WORKDIR /home/node
 
 COPY . /home/node/
 
-RUN yarn build && npm prune --production
+RUN npm build && npm prune --production
 
-CMD ["yarn", "start:prod"]
+CMD ["npm", "start:prod"]
