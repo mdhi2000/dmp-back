@@ -25,7 +25,7 @@ WORKDIR /home/node
 COPY package*.json /home/node
 COPY yarn.lock /home/node
 
-RUN npm install
+RUN yarn
 
 # ----
 
@@ -38,6 +38,6 @@ WORKDIR /home/node
 
 COPY . /home/node/
 
-RUN npm build && npm prune --production
+RUN yarn build && npm prune --production
 
-CMD ["npm", "start:prod"]
+CMD ["yarn", "start:prod"]
