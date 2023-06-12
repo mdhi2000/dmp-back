@@ -11,6 +11,10 @@ export class Mood {
   name: string;
 
   @ApiProperty()
+  @Prop({ required: true })
+  faName: string;
+
+  @ApiProperty()
   @Prop()
   cover: string;
 

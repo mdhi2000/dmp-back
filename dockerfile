@@ -17,7 +17,7 @@
 
 # # CMD ["yarn", "start:dev"]
 
-FROM node:16-alpine as base
+FROM node:16.16-alpine as base
 
 USER node
 WORKDIR /home/node
