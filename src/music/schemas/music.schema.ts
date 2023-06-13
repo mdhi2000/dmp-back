@@ -116,9 +116,9 @@ export class Music {
   @ApiProperty()
   lyric: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Mood.name })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Mood.name }] })
   @ApiProperty()
-  mood: Mood;
+  moods: Mood[];
 
   @Prop({ index: true })
   @ApiProperty()

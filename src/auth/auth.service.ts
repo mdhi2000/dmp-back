@@ -77,6 +77,7 @@ export class AuthService {
     }
     return new this.userModel({
       email: loginDto.email,
+      name: loginDto.email.split('@')[0],
       username: await this.generateRandomUsername(),
       moods: userMoods,
     });
