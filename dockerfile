@@ -17,27 +17,57 @@
 
 # # CMD ["yarn", "start:dev"]
 
-FROM node:16.16-alpine as base
+# FROM node:16.16-alpine as base
 
-USER node
-WORKDIR /home/node
+# USER node
+# WORKDIR /home/node
 
-COPY package*.json /home/node
-COPY yarn.lock /home/node
+# COPY package*.json /home/node
+# COPY yarn.lock /home/node
+
+# RUN yarn install
+
+# # ----
+
+# FROM base as production
+
+# ENV NODE_ENV production
+
+# USER node
+# WORKDIR /home/node
+
+# COPY . /home/node/
+
+# RUN yarn build && npm prune --production
+
+# CMD ["yarn", "start:prod"]
+
+
+FROM node:16.16-alpine As development
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
 
 RUN yarn install
 
-# ----
+COPY . .
 
-FROM base as production
+RUN yarn build
 
-ENV NODE_ENV production
+FROM node:16.16-alpine as production
 
-USER node
-WORKDIR /home/node
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
-COPY . /home/node/
+WORKDIR /usr/src/app
 
-RUN yarn build && npm prune --production
+COPY package*.json ./
 
-CMD ["yarn", "start:prod"]
+RUN yarn install --production
+
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
+
+CMD ["node", "dist/main"]
