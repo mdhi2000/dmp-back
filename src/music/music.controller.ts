@@ -87,13 +87,13 @@ export class MusicController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   like(@Param('id') id: string, @Req() req) {
-    return this.musicService.likeSong(req.body.currentUser.id, id);
+    return this.musicService.likeSong(req.currentUser.id, id);
   }
 
   @Get('dislike/:id')
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   dislike(@Param('id') id: string, @Req() req) {
-    return this.musicService.dislikeSong(req.body.currentUser.id, id);
+    return this.musicService.dislikeSong(req.currentUser.id, id);
   }
 }

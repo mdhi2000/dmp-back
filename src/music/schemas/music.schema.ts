@@ -44,15 +44,30 @@ export class Music {
   @ApiProperty()
   permlink: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://assets.rjassets.com/',
+        'https://leia2.mdhi.dev/rjassets/',
+      ),
+  })
   @ApiProperty()
   photo: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://assets.rjassets.com/',
+        'https://leia2.mdhi.dev/rjassets/',
+      ),
+  })
   @ApiProperty()
   photo_player: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace('https://rj.app/', 'https://leia2.mdhi.dev/rj/'),
+  })
   @ApiProperty()
   share_link: string;
 
@@ -72,27 +87,63 @@ export class Music {
   @ApiProperty()
   dislike: number;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://host1.media-rj.app/',
+        'https://leia2.mdhi.dev/media-rj/',
+      ),
+  })
   @ApiProperty()
   link: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://host1.media-rj.app/',
+        'https://leia2.mdhi.dev/media-rj/',
+      ),
+  })
   @ApiProperty()
   hq_link: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://host1.media-rj.app/',
+        'https://leia2.mdhi.dev/media-rj/',
+      ),
+  })
   @ApiProperty()
   lq_link: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://host1.media-rj.app/',
+        'https://leia2.mdhi.dev/media-rj/',
+      ),
+  })
   @ApiProperty()
   hls_link: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://host1.media-rj.app/',
+        'https://leia2.mdhi.dev/media-rj/',
+      ),
+  })
   @ApiProperty()
   hq_hls: string;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://host1.media-rj.app/',
+        'https://leia2.mdhi.dev/media-rj/',
+      ),
+  })
   @ApiProperty()
   lq_hls: string;
 
@@ -108,7 +159,13 @@ export class Music {
   @ApiProperty()
   duration: number;
 
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://assets.rjassets.com/',
+        'https://leia2.mdhi.dev/rjassets/',
+      ),
+  })
   @ApiProperty()
   thumbnail: string;
 

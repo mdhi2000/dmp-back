@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import { MoodService } from './mood.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Mood } from './schemas/mood.schema';
@@ -19,6 +19,7 @@ export class MoodController {
     type: Mood,
   })
   @Get()
+  @ApiTags('Done')
   findAll() {
     return this.moodService.findAll();
   }
@@ -38,9 +39,19 @@ export class MoodController {
   //   return this.moodService.remove(+id);
   // }
 
-  // @Get('assign')
-  // @
-  // assign(){
+  @Get('assign/next')
+  getNextMusic() {
+    console.log('mood/assign/next');
+    return this.moodService.getNextMusic();
+  }
 
-  // }
+  @Get('assign/:musicId/:moodId')
+  assign(@Param('musicId') musicId: string, @Param('moodId') moodId: string) {
+    return this.moodService.assignLabel(musicId, moodId);
+  }
+
+  @Get('revoke/:musicId/:moodId')
+  revoke(@Param('musicId') musicId: string, @Param('moodId') moodId: string) {
+    return this.moodService.revokeLabel(musicId, moodId);
+  }
 }
