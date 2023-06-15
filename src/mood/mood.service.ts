@@ -31,7 +31,25 @@ export class MoodService {
   //   return `This action removes a #${id} mood`;
   // }
 
-  // assignLabel() {}
+  assignLabel(musicId: string, moodId: string) {
+    console.log({ musicId, moodId });
+    // return this.musicModel.findById(musicId);
+    return this.musicModel.findByIdAndUpdate(
+      musicId,
+      { $push: { moods: moodId } },
+      { new: true },
+    );
+  }
+
+  revokeLabel(musicId: string, moodId: string) {
+    console.log('revoke', { musicId, moodId });
+    // return this.musicModel.findById(musicId);
+    return this.musicModel.findByIdAndUpdate(
+      musicId,
+      { $pull: { moods: moodId } },
+      { new: true },
+    );
+  }
 
   async getNextMusic() {
     return (
