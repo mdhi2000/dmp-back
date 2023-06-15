@@ -24,7 +24,7 @@ import {
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { AuthGuard } from './auth.guard';
 import { Request } from 'express';
-import { User } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -33,6 +33,7 @@ export class AuthController {
 
   @ApiBody({ type: LoginDto })
   @Post('login')
+  @ApiTags('Done')
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
@@ -49,6 +50,7 @@ export class AuthController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'Unauthorized access: invalid code',
   })
+  @ApiTags('Done')
   @Post('verify')
   verifyEmail(@Body() verifyEmailDto: VerifyEmailDto) {
     return this.authService.verifyEmail(verifyEmailDto);
@@ -65,7 +67,8 @@ export class AuthController {
     description: "User's data",
     type: User,
   })
-  getMe(@Req() req: Request) {
-    return req.body.currentUser;
+  @ApiTags('Done')
+  getMe(@Req() req: Request & { currentUser: UserDocument }) {
+    return req.currentUser;
   }
 }

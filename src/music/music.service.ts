@@ -26,13 +26,13 @@ export class MusicService {
     const options = {
       page,
       limit,
-      populate: ['artist', 'mood'],
+      populate: ['artist', 'moods'],
     };
     return await this.musicModel.paginate({}, options);
   }
 
   async findOne(id: string) {
-    return [await this.musicModel.findById(id).populate(['artist', 'mood'])];
+    return [await this.musicModel.findById(id).populate(['artist', 'moods'])];
   }
 
   update(id: number, updateMusicDto: UpdateMusicDto) {

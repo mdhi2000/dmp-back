@@ -48,8 +48,12 @@ export class AuthService {
   }
   async login(loginDto: LoginDto) {
     console.log(loginDto);
+    let is_sign_up = false;
     let user = await this.userModel.findOne({ email: loginDto.email });
-    if (!user) user = await this.createUser(loginDto);
+    if (!user) {
+      is_sign_up = true;
+      user = await this.createUser(loginDto);
+    }
     console.log(user);
     user.verificationCode = this.generateVerificationCode(5);
     user.save();
@@ -65,22 +69,28 @@ export class AuthService {
 
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-    return info;
+    return { ...info, is_sign_up };
   }
 
   async createUser(loginDto: LoginDto) {
     const moods = await this.moodModel.find();
-    const userMoods = [];
-    for (const mood of moods) {
-      const userMood = new this.userMoodModel({ mood, weight: 0 });
-      userMoods.push(userMood);
-    }
-    return new this.userModel({
+    const createdUser = new this.userModel({
       email: loginDto.email,
       name: loginDto.email.split('@')[0],
       username: await this.generateRandomUsername(),
-      moods: userMoods,
     });
+
+    for (const mood of moods) {
+      const userMood = new this.userMoodModel({
+        user: createdUser,
+        mood,
+        weight: 0,
+      });
+      userMood.save();
+      createdUser.moods.push(userMood);
+    }
+    // createdUser.save();
+    return createdUser;
   }
 
   async verifyEmail(verifyEmailDto: VerifyEmailDto) {

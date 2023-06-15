@@ -21,23 +21,50 @@ export class Artist extends Document {
   plays: number;
 
   @ApiProperty()
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://assets.rjassets.com/',
+        'https://leia2.mdhi.dev/rjassets/',
+      ),
+  })
   photo: string;
 
   @ApiProperty()
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://assets.rjassets.com/',
+        'https://leia2.mdhi.dev/rjassets/',
+      ),
+  })
   photo_player: string;
 
   @ApiProperty()
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://assets.rjassets.com/',
+        'https://leia2.mdhi.dev/rjassets/',
+      ),
+  })
   photo_thumb: string;
 
   @ApiProperty()
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace(
+        'https://assets.rjassets.com/',
+        'https://leia2.mdhi.dev/rjassets/',
+      ),
+  })
   background: string;
 
   @ApiProperty()
-  @Prop()
+  @Prop({
+    get: (link: string) =>
+      link?.replace('https://rj.app/', 'https://leia2.mdhi.dev/rj/'),
+  })
   share_link: string;
 
   @ApiProperty()

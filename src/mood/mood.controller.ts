@@ -19,6 +19,7 @@ export class MoodController {
     type: Mood,
   })
   @Get()
+  @ApiTags('Done')
   findAll() {
     return this.moodService.findAll();
   }
@@ -43,4 +44,9 @@ export class MoodController {
   // assign(){
 
   // }
+
+  @Get('assign/next')
+  getNextMusic() {
+    return this.moodService.getNextMusic();
+  }
 }

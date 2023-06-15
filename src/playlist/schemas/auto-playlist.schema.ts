@@ -30,7 +30,7 @@ export class AutoPlaylist extends Document {
     return MusicModel.find({
       $and: prompts,
     })
-      .populate('artist', 'mood')
+      .populate('artist', 'moods')
       .exec();
   }
 }
